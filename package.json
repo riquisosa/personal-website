@@ -36,7 +36,9 @@
     "check": "astro check",
     "format": "prettier --write \"src/**/*.{astro,ts,css,md,mdx}\"",
     "lint": "eslint \"src/**/*.{js,ts,astro}\" \"*.mjs\"",
-    "lint:css": "stylelint \"src/**/*.{css,astro}\""
+    "lint:css": "stylelint \"src/**/*.{css,astro}\"",
+    "check:colors": "node scripts/check-no-hardcoded-colors.mjs",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.3",
@@ -55,14 +57,28 @@
     "@eslint/js": "^9.39.4",
     "eslint": "^9.39.4",
     "eslint-plugin-astro": "^1.7.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.3.0",
     "pagefind": "^1.5.2",
     "postcss-html": "^1.8.1",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "stylelint": "^17.11.0",
     "stylelint-config-standard": "^40.0.0",
+    "stylelint-declaration-strict-value": "^1.11.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.3"
+  },
+  "lint-staged": {
+    "*.{astro,css}": [
+      "stylelint --fix"
+    ],
+    "*.{js,ts,astro}": [
+      "eslint --fix"
+    ],
+    "*.{astro,ts,css,md,mdx}": [
+      "prettier --write"
+    ]
   },
   "overrides": {
     "@typescript-eslint/scope-manager": "8.46.3",

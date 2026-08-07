@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Block commits containing unresolved merge-conflict markers.
+# This is the single check that would have caught guestbook.mdx / newsletter.mdx
+# being committed with <<<<<<< HEAD left in place. It runs first, unconditionally,
+# before anything else -- a conflict marker is worse than any lint failure.
+if git diff --cached --diff-filter=ACM --name-only -z | \
+   xargs -0 grep -lE '^(<{7}|={7}|>{7}) ' 2>/dev/null | grep -q .; then
+  echo ""
+  echo "COMMIT BLOCKED: unresolved merge-conflict markers found in staged files:"
+  git diff --cached --diff-filter=ACM --name-only -z | \
+    xargs -0 grep -lE '^(<{7}|={7}|>{7}) ' 2>/dev/null
+  echo ""
+  echo "Resolve the conflict before committing."
+  exit 1
+fi
+
+npx lint-staged

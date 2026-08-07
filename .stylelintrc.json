@@ -1,6 +1,14 @@
 {
   "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-declaration-strict-value"],
   "rules": {
+    "scale-unlimited/declaration-strict-value": [
+      ["/color$/", "background-color", "border-color", "fill", "stroke"],
+      {
+        "ignoreValues": ["inherit", "transparent", "currentColor", "unset", "none"],
+        "disableFix": true
+      }
+    ],
     "selector-class-pattern": null,
     "custom-property-empty-line-before": null,
     "declaration-empty-line-before": null,
@@ -20,6 +28,12 @@
     {
       "files": ["**/*.astro"],
       "customSyntax": "postcss-html"
+    },
+    {
+      "files": ["**/tokens.css"],
+      "rules": {
+        "scale-unlimited/declaration-strict-value": null
+      }
     }
   ],
   "ignoreFiles": ["dist/**", "node_modules/**", ".astro/**"]
