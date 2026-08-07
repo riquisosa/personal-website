@@ -3,6 +3,7 @@
   "description": "Typography-first Astro blog starter with quiet design, built-in search, and publishing defaults.",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "bun@1.3.14",
   "private": true,
   "license": "MIT",
   "author": "hanityx",
